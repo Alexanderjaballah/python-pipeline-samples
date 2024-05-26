@@ -1,0 +1,14 @@
+inputSet:
+  name: Build_python_pipeline_samples_1716750577679-pr-trigger-input-set
+  identifier: Build_python_pipeline_samples_1716750577679prtriggerinputset
+  orgIdentifier: default
+  projectIdentifier: CITest
+  pipeline:
+    identifier: Build_python_pipeline_samples_1716750577679
+    properties:
+      ci:
+        codebase:
+          build:
+            type: PR
+            spec:
+              number: <+trigger.prNumber>
