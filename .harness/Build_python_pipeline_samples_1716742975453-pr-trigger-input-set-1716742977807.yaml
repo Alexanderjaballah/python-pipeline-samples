@@ -1,0 +1,14 @@
+inputSet:
+  name: Build_python_pipeline_samples_1716742975453-pr-trigger-input-set
+  identifier: Build_python_pipeline_samples_1716742975453prtriggerinputset
+  orgIdentifier: default
+  projectIdentifier: alextest
+  pipeline:
+    identifier: Build_python_pipeline_samples_1716742975453
+    properties:
+      ci:
+        codebase:
+          build:
+            type: PR
+            spec:
+              number: <+trigger.prNumber>
