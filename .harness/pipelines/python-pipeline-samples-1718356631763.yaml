@@ -11,16 +11,17 @@ pipeline:
         repoName: python-pipeline-samples
   stages:
     - stage:
-        identifier: build
-        name: build
+        name: Test
+        identifier: test
+        description: ""
+        type: CI
         spec:
+          cloneCodebase: true
           caching:
             enabled: true
             key: cache-{{ checksum "requirements.txt" }}
             paths:
               - /root/.cache
-          sharedPaths:
-            - /root/.cache
           execution:
             steps:
               - step:
@@ -34,10 +35,27 @@ pipeline:
                       pip install -r requirements.txt
                     envVariables:
                       PIP_CACHE_DIR: /root/.cache
+              - step:
+                  type: Run
+                  name: Test
+                  identifier: test
+                  spec:
+                    shell: Sh
+                    command: |-
+                      pip install pytest
+                      pytest tests.py --junit-xml=report.xml
+                    envVariables:
+                      PIP_CACHE_DIR: /root/.cache
+                    reports:
+                      type: JUnit
+                      spec:
+                        paths:
+                          - report.xml
           platform:
-            arch: Amd64
             os: Linux
+            arch: Amd64
           runtime:
-            spec: {}
             type: Cloud
-        type: CI
+            spec: {}
+          sharedPaths:
+            - /root/.cache
