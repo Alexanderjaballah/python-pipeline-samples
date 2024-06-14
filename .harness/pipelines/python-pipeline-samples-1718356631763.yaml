@@ -16,7 +16,11 @@ pipeline:
         spec:
           caching:
             enabled: true
-          cloneCodebase: true
+            key: cache-{{ checksum "requirements.txt" }}
+            paths:
+              - /root/.cache
+          sharedPaths:
+            - /root/.cache
           execution:
             steps:
               - step:
